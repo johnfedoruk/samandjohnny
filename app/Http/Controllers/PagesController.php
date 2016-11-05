@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
+
 class PagesController extends Controller {
   public function getIndex() {
-    return view('pages.welcome');
+    $posts = Post::orderBy("created_at","desc")->paginate(10);
+    return view('pages.welcome')->withPosts($posts)->withLen(255);
   }
   public function getAbout() {
     return view('pages.about');

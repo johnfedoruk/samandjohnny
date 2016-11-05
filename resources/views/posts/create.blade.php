@@ -17,20 +17,67 @@
           Create New Post
         </h1>
         <hr>
-        {!! Form::open(array("route"=>"posts.store","data-parsley-validate"=>"")) !!}
-          {{ Form::label("title","Title") }}
-          {{ Form::text("title",null,array(
-            "class"=>"form-control",
-            "required"=>"",
-            "maxlength"=>"255"
-          )) }}
-          {{ Form::label("body","Body",array("style"=>"margin-top:20px;")) }}
-          {{ Form::textarea("body",null,array(
-            "class"=>"form-control",
-            "required"=>""
-          )) }}
-          {{ Form::submit("Create Post",array("class"=>"btn btn-success btn-lg btn-block","style"=>"margin-top:20px")) }}
-        {!! Form::close() !!}
+        {!!
+          Form::open(
+            array(
+              "route"=>"posts.store",
+              "data-parsley-validate"=>""
+            )
+          )
+        !!}
+          <!-- title label -->
+          {{
+            Form::label(
+            "title",
+            "Title"
+            )
+          }}
+          <!-- title input -->
+          {{
+            Form::text(
+              "title",
+              null,
+              array(
+                "class"=>"form-control",
+                "required"=>"",
+                "maxlength"=>"255"
+              )
+            )
+          }}
+          <!-- body label -->
+          {{
+            Form::label(
+              "body",
+              "Body",
+              array(
+                "style"=>"margin-top:20px;"
+              )
+            )
+          }}
+          <!-- body input -->
+          {{
+            Form::textarea(
+              "body",
+              null,
+              array(
+                "class"=>"form-control",
+                "required"=>""
+              )
+            )
+          }}
+          <!-- submit button -->
+          {{
+            Form::submit(
+              "Create Post",
+              array(
+                "class"=>"btn btn-success btn-lg btn-block",
+                "style"=>"margin-top:20px"
+              )
+            )
+          }}
+        {!!
+          Form::close()
+        !!}
       </div>
     </div>
 @endsection

@@ -9,15 +9,30 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/">John's Project Blog</a>
+      <a class="navbar-brand" href="{{route('posts.index')}}">Johnny's Project Blog</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/contact">Contact</a></li>
+        <li {{ Request::is("/") ? "class=active" : "" }}>
+          <a href="{{ Request::is("/") ? '#' : '/' }}">
+            Home
+            {!! Request::is("/") ? "<span class='sr-only'>(current)</span>" : "" !!}
+          </a>
+        </li>
+        <li {{ Request::is("about") ? "class=active" : "" }}>
+          <a href="{{ Request::is("about") ? '#' : 'about' }}">
+            About
+            {!! Request::is("about") ? "<span class='sr-only'>(current)</span>" : "" !!}
+          </a>
+        </li>
+        <li {{ Request::is("contact") ? "class=active" : "" }}>
+          <a href="{{ Request::is("contact") ? '#' : 'contact' }}">
+            Contact
+            {!! Request::is("contact") ? "<span class='sr-only'>(current)</span>" : "" !!}
+          </a>
+        </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">

@@ -24,7 +24,7 @@
         </div>
         <div class="form-group">
           <label>Message</label>
-          <textarea id="message" class="form-control" >Type your message here...</textarea>
+          <textarea id="message" class="form-control" placeholder="Type your message here..."></textarea>
         </div>
         <input type="submit" value="Send Message" class="btn btn-success" />
       </form>

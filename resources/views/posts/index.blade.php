@@ -44,7 +44,7 @@
                 <td>{{$post->title}}</td>
                 <td>{{substr($post->body,0,50)}}{{(strlen($post->body)>50)?("..."):("")}}</td>
                 <td>{{date("M j, Y",strtotime($post->created_at))}}</td>
-                <td>{{date("M j, Y",strtotime($post->updated_at))}}</td>
+                <td>{{($post->updated_at!=$post->created_at)?(date("M j, Y",strtotime($post->updated_at))):("")}}</td>
                 <td>
                   <a href="{{route('posts.show',['id'=>$post->id])}}" class="btn btn-default">View</a>
                   <a href="{{route('posts.edit',['id'=>$post->id])}}" class="btn btn-default">Edit</a>
@@ -53,6 +53,11 @@
             @endforeach
           </tbody>
         </table>
+        <div class="text-center">
+          {!!
+            $posts->links();
+          !!}
+        </div>
       </div>
     </div>
   </div>

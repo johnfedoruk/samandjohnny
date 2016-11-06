@@ -44,7 +44,7 @@ class PostController extends Controller
     {
       // validate the data
       $this->validate($request,array(
-        "title" => "required|max:255",
+        "title" => "required|max:255|unique:posts,title",
         "body" => "required"
       ));
 
@@ -52,6 +52,7 @@ class PostController extends Controller
       $post = new Post;
 
       $post->title = $request->title;
+      $post->slug = str_slug($request->title,"-");
       $post->body = $request->body;
 
       $post->save();
@@ -96,16 +97,30 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+      // get the slug
+      $request->merge(
+        [
+          "slug"=>str_slug($request->title,"-")
+        ]
+      );
+
+      $post = Post::find($id);
+
+      $rules = ["body" => "required"];  
+      if($post->title!=$request->title)
+        $rules["title"] = "required|max:255|unique:posts,slug";
+      if($post->slug!=$request->slug)
+        $rules["slug"] = "required|unique:posts,slug";
+
       // validate data
-      $this->validate($request,array(
-        "title" => "required|max:255",
-        "body" => "required"
-      ));
+      $this->validate($request,$rules);
 
       // save data to Database
       $post = Post::find($id);
 
       $post->title = $request->title;
+      $post->slug = $request->slug;
       $post->body = $request->body;
 
       $post->save();

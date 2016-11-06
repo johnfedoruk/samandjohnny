@@ -18,9 +18,25 @@
         {{$post->body}}
       </p>
     </div>
+    <style>
+      @media screen and (min-width: 768px) {
+        .dl-horizontal dd {
+          margin-left: 110px;
+        }
+        .dl-horizontal dt {
+          width: 100px
+        }
+      }
+    </style>
     <div class="col-md-4">
       <div class="well">
         <dl class="dl-horizontal">
+          <dt>
+            Url:
+          </dt>
+          <dd style="word-break:break-all;">
+            <a href="{{url($post->slug)}}">{{url($post->slug)}}</a>
+          </dd>
           <dt>
             Created At:
           </dt>
@@ -71,6 +87,21 @@
             {!!
               Form::close()
             !!}
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-sm-12">
+            {{
+              Html::linkRoute(
+                "posts.index",
+                "<< See All Posts",
+                [],
+                [
+                  "class"=>"btn btn-default btn-block"
+                ]
+              )
+            }}
           </div>
         </div>
       </div>

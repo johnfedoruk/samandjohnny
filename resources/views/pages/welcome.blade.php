@@ -29,7 +29,7 @@
           <p>
             {{substr($post->body,0,$len)}}{{(strlen($post->body)>$len)?("..."):("")}}
           </p>
-          <a href="#" class="btn btn-primary">Read More</a>
+          <a href="{{url('blog/'.$post->slug)}}" class="btn btn-primary">Read More</a>
         </div>
         @if($post!=$posts->last())
           <hr>

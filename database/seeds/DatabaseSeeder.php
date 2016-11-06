@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UsersTableSeeder::class);
-        $faker = Faker::create();
+        $faker = Faker::create("en_US");
         foreach(range(1,100) as $index) {
           $postController = new PostController();
           // store in the Database

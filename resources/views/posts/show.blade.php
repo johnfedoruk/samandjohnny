@@ -35,7 +35,7 @@
             Url:
           </dt>
           <dd style="word-break:break-all;">
-            <a href="{{url($post->slug)}}">{{url($post->slug)}}</a>
+            <a href="{{url('blog/'.$post->slug)}}">{{url('blog/'.$post->slug)}}</a>
           </dd>
           <dt>
             Created At:

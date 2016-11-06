@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Post;
+use App\Http\Controllers\PostController;
 use Faker\Factory as Faker;
 
 class DatabaseSeeder extends Seeder
@@ -16,13 +17,24 @@ class DatabaseSeeder extends Seeder
         // $this->call(UsersTableSeeder::class);
         $faker = Faker::create();
         foreach(range(1,100) as $index) {
+          $postController = new PostController();
           // store in the Database
+          $postController->store(Request::create(
+            "",
+            "",
+            [
+              "title" => $faker->word." ".$faker->word." ".$faker->word,
+              "body" => $faker->paragraph.$faker->paragraph
+            ]
+          ));
+          /*
           $post = new Post;
 
           $post->title = $faker->word." ".$faker->word." ".$faker->word;
           $post->body = $faker->paragraph;
 
           $post->save();
+          */
           /*
           DB::table("posts")->insert(
             [

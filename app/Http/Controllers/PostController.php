@@ -107,7 +107,7 @@ class PostController extends Controller
 
       $post = Post::find($id);
 
-      $rules = ["body" => "required"];  
+      $rules = ["body" => "required"];
       if($post->title!=$request->title)
         $rules["title"] = "required|max:255|unique:posts,slug";
       if($post->slug!=$request->slug)

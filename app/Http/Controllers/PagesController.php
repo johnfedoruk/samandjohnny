@@ -6,7 +6,7 @@ use App\Post;
 
 class PagesController extends Controller {
   public function getIndex() {
-    $posts = Post::orderBy("created_at","desc")->paginate(10);
+    $posts = Post::orderBy("created_at","desc")->take(5)->get();
     return view('pages.welcome')->withPosts($posts)->withLen(255);
   }
   public function getAbout() {

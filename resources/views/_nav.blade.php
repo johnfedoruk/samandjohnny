@@ -9,7 +9,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="{{route('posts.index')}}">Johnny's Project Blog</a>
+      <a class="navbar-brand" href="{{route('blog.index')}}">Johnny's Project Blog</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->

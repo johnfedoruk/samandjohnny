@@ -22,13 +22,13 @@
           </a>
         </li>
         <li {{ Request::is("about") ? "class=active" : "" }}>
-          <a href="{{ Request::is("about") ? '#' : 'about' }}">
+          <a href="{{ Request::is("about") ? '#' : '/about' }}">
             About
             {!! Request::is("about") ? "<span class='sr-only'>(current)</span>" : "" !!}
           </a>
         </li>
         <li {{ Request::is("contact") ? "class=active" : "" }}>
-          <a href="{{ Request::is("contact") ? '#' : 'contact' }}">
+          <a href="{{ Request::is("contact") ? '#' : '/contact' }}">
             Contact
             {!! Request::is("contact") ? "<span class='sr-only'>(current)</span>" : "" !!}
           </a>

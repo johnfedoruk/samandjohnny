@@ -27,6 +27,10 @@
     </div>
   </div>
   <style>
+    .table {
+      table-layout: fixed;
+      word-wrap: break-word;
+    }
     @media screen and (max-width: 768px) {
       #postList thead th:nth-child(1),#postList tbody tr th:nth-child(1) {
         display:none;
@@ -40,8 +44,8 @@
           <th>#</th>
           <th>Title</th>
           <th>Body</th>
-          <th>Created At</th>
-          <th>Edited At</th>
+          <th>Created</th>
+          <th>Edited</th>
           <th></th>
         </thead>
         <tbody>

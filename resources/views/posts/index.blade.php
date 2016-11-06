@@ -25,39 +25,45 @@
     <div class="col-md-12">
       <hr>
     </div>
-
-    <div class="row">
-      <div class="col-md-12">
-        <table class="table">
-          <thead>
-            <th>#</th>
-            <th>Title</th>
-            <th>Body</th>
-            <th>Created At</th>
-            <th>Edited At</th>
-            <th></th>
-          </thead>
-          <tbody>
-            @foreach($posts as $post)
-              <tr>
-                <th>{{$post->id}}</td>
-                <td>{{$post->title}}</td>
-                <td>{{substr($post->body,0,50)}}{{(strlen($post->body)>50)?("..."):("")}}</td>
-                <td>{{date("M j, Y",strtotime($post->created_at))}}</td>
-                <td>{{($post->updated_at!=$post->created_at)?(date("M j, Y",strtotime($post->updated_at))):("")}}</td>
-                <td>
-                  <a href="{{route('posts.show',['id'=>$post->id])}}" class="btn btn-default">View</a>
-                  <a href="{{route('posts.edit',['id'=>$post->id])}}" class="btn btn-default">Edit</a>
-                </td>
-              </tr>
-            @endforeach
-          </tbody>
-        </table>
-        <div class="text-center">
-          {!!
-            $posts->links();
-          !!}
-        </div>
+  </div>
+  <style>
+    @media screen and (max-width: 768px) {
+      #postList thead th:nth-child(1),#postList tbody tr th:nth-child(1) {
+        display:none;
+      }
+    }
+  </style>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table" id="postList">
+        <thead>
+          <th>#</th>
+          <th>Title</th>
+          <th>Body</th>
+          <th>Created At</th>
+          <th>Edited At</th>
+          <th></th>
+        </thead>
+        <tbody>
+          @foreach($posts as $post)
+            <tr>
+              <th>{{$post->id}}</td>
+              <td>{{$post->title}}</td>
+              <td>{{substr($post->body,0,50)}}{{(strlen($post->body)>50)?("..."):("")}}</td>
+              <td>{{date("M j, Y",strtotime($post->created_at))}}</td>
+              <td>{{($post->updated_at!=$post->created_at)?(date("M j, Y",strtotime($post->updated_at))):("")}}</td>
+              <td>
+                <a href="{{route('posts.show',['id'=>$post->id])}}" class="btn btn-default">View</a>
+                <a href="{{route('posts.edit',['id'=>$post->id])}}" class="btn btn-default">Edit</a>
+              </td>
+            </tr>
+          @endforeach
+        </tbody>
+      </table>
+      <div class="text-center">
+        {!!
+          $posts->links();
+        !!}
       </div>
     </div>
   </div>

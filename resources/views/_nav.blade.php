@@ -36,13 +36,18 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{Auth::check()?Auth::user()->name:"Account"}} <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
+            @if(Auth::check())
+              <li><a href="{{route('posts.create')}}">Create A Post</a></li>
+              <li><a href="{{route('posts.store')}}">List All Posts</a></li>
+              <li><a href="{{route('auth.logout')}}">Logout</a></li>
+            @else
+              <li><a href="{{route('auth.login')}}">Login</a></li>
+              <li><a href="{{route('auth.register')}}">Register</a></li>
+            @endif
             <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
+            <li><a href="http://johnfedoruk.co.uk" target="_blank">Johnny's Portfolio</a></li>
           </ul>
         </li>
       </ul>

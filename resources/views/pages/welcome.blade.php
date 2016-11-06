@@ -12,10 +12,10 @@
   <div class="row">
     <div class="col-md-12">
       <div class="jumbotron" style="background:    linear-gradient(
-  rgba(255, 255, 255, 0.75),
-  rgba(255, 255, 255, 0.75)
+  rgba(255, 255, 255, 0.15),
+  rgba(255, 255, 255, 1)
   ),url('http://www.desktopimages.org/pictures/2015/0504/1/hacker-hacking-hack-anarchy-virus-internet-computer-sadic-anonymous-dark-code-binary-images-200620.jpg');background-size:cover;">
-        <h1>Welcome to my blog!!</h1>
+        <h1>Welcome {{Auth::check()?Auth::user()->name:"to my blog!!"}}</h1>
         <p class="lead">Thank you for visiting</p>
         <p><a class="btn btn-primary btn-lg" href="http://johnfedoruk.co.uk" target="_blank" role="button">View my profile</a></p>
       </div>

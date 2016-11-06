@@ -1,6 +1,6 @@
 @extends("main")
 
-@section("title","Welcome")
+@section("title","Archive")
 
 @section("stylesheets")
 @endsection
@@ -12,10 +12,11 @@
   <div class="row">
     <div class="col-md-12">
       <div class="jumbotron" style="background:    linear-gradient(
-  rgba(255, 255, 255, 0.75),
-  rgba(255, 255, 255, 0.75)
-  ),url('http://www.desktopimages.org/pictures/2015/0504/1/hacker-hacking-hack-anarchy-virus-internet-computer-sadic-anonymous-dark-code-binary-images-200620.jpg');background-size:cover;">
+  rgba(255, 255, 255, 0.15),
+  rgba(255, 255, 255, 1)
+  ),url('http://www.gannett-cdn.com/-mm-/f30f35aa86398ef433ca6f0a9b55d5cdad641e3e/c=0-80-640-560&r=x404&c=534x401/local/-/media/Rochester/2015/02/01/B9316039889Z.1_20150201012550_000_GKI9PIVOA.1-0.jpg');background-size:cover;">
         <h1>Archive</h1>
+        <p class="lead">A collection of all my blog posts</p>
       </div>
     </div>
   </div>

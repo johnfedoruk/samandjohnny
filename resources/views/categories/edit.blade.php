@@ -36,7 +36,10 @@
         {!!
           Form::text(
             "name",
-            $category->name
+            $category->name,
+            [
+              "class"=>"form-control"
+            ]
           )
         !!}
         <hr>

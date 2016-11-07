@@ -19,8 +19,15 @@ Route::get("auth/logout",["uses"=>"Auth\LoginController@logout","as"=>"auth.logo
 Route::get("auth/register",["uses"=>"Auth\RegisterController@showRegistrationForm","as"=>"auth.register"]);
 Route::post("auth/register","Auth\RegisterController@register");
 
+// password reset
+Route::get("password/reset/{token}","Auth\ResetPasswordController@showResetForm");
+Route::get("password/email","Auth\ForgotPasswordController@showLinkRequestForm");
+Route::post("password/reset","Auth\ResetPasswordController@reset");
+Route::post("password/email","Auth\ForgotPasswordController@sendResetLinkEmail");
+
 // pages routes
 Route::get('/', "PagesController@getIndex");
+Route::get("/home","PagesController@getIndex");
 Route::get('/about', "PagesController@getAbout");
 Route::get('/contact', "PagesController@getContact");
 

@@ -62,7 +62,7 @@
             "Remember Me"
           )
         }}
-        <br><br>
+        <br>
         <!-- submit button -->
         {{
           Form::submit(
@@ -72,6 +72,10 @@
             ]
           )
         }}
+        <br>
+        <p>
+          <a href="{{url('password/email')}}">I Forgot my password</a>
+        </p>
       {!!
         Form::close()
       !!}

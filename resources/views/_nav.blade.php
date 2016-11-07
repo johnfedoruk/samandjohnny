@@ -41,6 +41,7 @@
             @if(Auth::check())
               <li><a href="{{route('posts.create')}}">Create A Post</a></li>
               <li><a href="{{route('posts.store')}}">List All Posts</a></li>
+              <li><a href="{{route('categories.index')}}">Manage Categories</a></li>
               <li><a href="{{route('auth.logout')}}">Logout</a></li>
             @else
               <li><a href="{{route('auth.login')}}">Login</a></li>

@@ -37,12 +37,21 @@
           <dd style="word-break:break-all;">
             <a href="{{url('blog/'.$post->slug)}}">{{url('blog/'.$post->slug)}}</a>
           </dd>
+          <br>
+          <dt>
+            Category:
+          </dt>
+          <dd>
+            {{$post->category->name}}
+          </dd>
+          <br>
           <dt>
             Created At:
           </dt>
           <dd>
             {{date("l, M j, Y \a\\t h:ia",strtotime($post->created_at))}}
           </dd>
+          <br>
           @if($post->created_at!=$post->updated_at)
             <dt>
               Last Update:

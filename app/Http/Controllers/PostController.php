@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Post;
+use App\Category;
 use Session;
 
 class PostController extends Controller
@@ -34,7 +35,11 @@ class PostController extends Controller
      */
     public function create()
     {
-      return view("posts.create");
+      $categories = Category::all();
+      $array = [];
+      foreach($categories as $category)
+        $array[$category->id]=$category->name;
+      return view("posts.create")->withCategories($array);
     }
 
     /**
@@ -46,10 +51,12 @@ class PostController extends Controller
     public function store(Request $request)
     {
       // validate the data
-      $this->validate($request,array(
+      $rules = [
         "title" => "required|max:255|unique:posts,title",
-        "body" => "required"
-      ));
+        "body" => "required",
+        "category_id" => "required|integer|exists:categories,id"
+      ];
+      $this->validate($request,$rules);
 
       // store in the Database
       $post = new Post;
@@ -57,6 +64,8 @@ class PostController extends Controller
       $post->title = $request->title;
       $post->slug = str_slug($request->title,"-");
       $post->body = $request->body;
+      if(isset($request->category_id))
+        $post->category_id = $request->category_id;
 
       $post->save();
 
@@ -88,7 +97,16 @@ class PostController extends Controller
     public function edit($id)
     {
       $post = Post::find($id);
-      return view("posts/edit")->withPost($post);
+      $categories = Category::all();
+      $array = [];
+      foreach($categories as $category)
+        $array[$category->id]=$category->name;
+      return view("posts/edit")->with(
+        [
+          "post"=>$post,
+          "categories"=>$array
+        ]
+      );
     }
 
     /**
@@ -110,9 +128,14 @@ class PostController extends Controller
 
       $post = Post::find($id);
 
-      $rules = ["body" => "required"];
+      $rules = [
+        "body" => "required",
+        "category_id" => "required|integer|exists:categories,id"
+      ];
+      // update title only if it has changed
       if($post->title!=$request->title)
         $rules["title"] = "required|max:255|unique:posts,slug";
+      // update slug only if it has changed
       if($post->slug!=$request->slug)
         $rules["slug"] = "required|unique:posts,slug";
 
@@ -125,6 +148,7 @@ class PostController extends Controller
       $post->title = $request->title;
       $post->slug = $request->slug;
       $post->body = $request->body;
+      $post->category_id = $request->category_id;
 
       $post->save();
 

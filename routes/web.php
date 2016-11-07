@@ -15,7 +15,7 @@ Route::get("auth/login",["uses"=>"Auth\LoginController@showLoginForm","as"=>"aut
 Route::post("auth/login","Auth\LoginController@login");
 Route::get("auth/logout",["uses"=>"Auth\LoginController@logout","as"=>"auth.logout"]);
 
-// logout routes
+// register routes
 Route::get("auth/register",["uses"=>"Auth\RegisterController@showRegistrationForm","as"=>"auth.register"]);
 Route::post("auth/register","Auth\RegisterController@register");
 
@@ -38,3 +38,6 @@ Route::get("/blog", ["uses"=>"BlogController@getIndex","as"=>"blog.index"]);
 
 // posts routes
 Route::resource("posts","PostController");
+
+// categories routes
+Route::resource("categories","CategoryController",["except"=>["create"]]);

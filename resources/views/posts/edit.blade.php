@@ -38,6 +38,25 @@
           ]
         )
       }}
+      <br>
+      <!-- category label -->
+      {{
+        Form::label(
+          "category_id",
+          "Category:"
+        )
+      }}
+      <!-- category input -->
+      {{
+        Form::select(
+          "category_id",
+          $categories,
+          $post->category_id,
+          [
+            "class"=>"form-control"
+          ]
+        )
+      }}
       <!-- body label -->
       {{
         Form::label(

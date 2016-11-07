@@ -19,6 +19,10 @@
         @endif
       </h5>
       <p>{{$post->body}}</p>
+      <hr>
+      @if($post->category!=null)
+        <p>Posted in: {{$post->category->name}}</p>
+      @endif
     </div>
   </div>
 @endsection

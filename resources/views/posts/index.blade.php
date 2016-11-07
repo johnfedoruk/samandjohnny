@@ -44,8 +44,8 @@
           <th>#</th>
           <th>Title</th>
           <th>Body</th>
-          <th>Created</th>
-          <th>Edited</th>
+          <th>Category</th>
+          <th>Dates</th>
           <th></th>
         </thead>
         <tbody>
@@ -54,8 +54,8 @@
               <th>{{$post->id}}</td>
               <td>{{$post->title}}</td>
               <td>{{substr($post->body,0,50)}}{{(strlen($post->body)>50)?("..."):("")}}</td>
-              <td>{{date("M j, Y",strtotime($post->created_at))}}</td>
-              <td>{{($post->updated_at!=$post->created_at)?(date("M j, Y",strtotime($post->updated_at))):("")}}</td>
+              <td>{{$post->category->name}}</td>
+              <td>{!!date("M j, Y",strtotime($post->created_at))!!}{!!($post->updated_at!=$post->created_at)?("<br>".date("M j, Y",strtotime($post->updated_at))):("")!!}</td>
               <td>
                 <a href="{{route('posts.show',['id'=>$post->id])}}" class="btn btn-default">View</a>
                 <a href="{{route('posts.edit',['id'=>$post->id])}}" class="btn btn-default">Edit</a>

@@ -40,4 +40,7 @@ Route::get("/blog", ["uses"=>"BlogController@getIndex","as"=>"blog.index"]);
 Route::resource("posts","PostController");
 
 // categories routes
-Route::resource("categories","CategoryController",["except"=>["create"]]);
+Route::resource("categories","CategoryController",["except"=>["create","show"]]);
+
+// tag routes
+Route::resource("tags","TagController",["except"=>["create","show"]]);

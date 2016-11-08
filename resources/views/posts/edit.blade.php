@@ -3,9 +3,16 @@
 @section("title","View Post")
 
 @section("stylesheets")
+  <link rel="stylesheet" href="/css/parsley.css">
+  <link rel="stylesheet" href="/css/select2.min.css">
 @endsection
 
 @section("javascript")
+  <script src="/js/parsley.min.js"></script>
+  <script src="/js/select2.min.js"></script>
+  <script type="text/javascript">
+    $("#tags").select2();
+  </script>
 @endsection
 
 @section("content")
@@ -18,6 +25,9 @@
           "posts.update",
           $post->id
         ]
+      ],
+      [
+        "data-parsley-validate"=>""
       ]
     ) !!}
     <div class="col-md-8">
@@ -34,7 +44,9 @@
           "title",
           null,
           [
-            "class"=>"form-control input-lg"
+            "class"=>"form-control input-lg",
+            "required"=>"",
+            "maxlength"=>"25"
           ]
         )
       }}
@@ -73,7 +85,30 @@
           "body",
           null,
           [
-            "class"=>"form-control"
+            "class"=>"form-control",
+            "required"=>""
+          ]
+        )
+      }}
+      <br>
+      <!-- tag label -->
+      {{
+        Form::label(
+          "tags",
+          "Tags"
+        )
+      }}
+      <!-- tag input -->
+      {{
+        Form::select(
+          "tags",
+          $tags,
+          $curr_tags,
+          [
+            "name"=>"tags[]",
+            "id"=>"tags",
+            "class"=>"form-control",
+            "multiple"=>"multiple"
           ]
         )
       }}

@@ -60,6 +60,14 @@
               {{date("l, M j, Y \a\\t h:ia",strtotime($post->updated_at))}}
             </dd>
           @endif
+          <div class="tags text-center">
+            @if(sizeof($post->tags)>0)
+              <hr>
+            @endif
+            @foreach($post->tags as $tag)
+              <span class="label label-default">{{$tag->name}}</span>
+            @endforeach
+          </div>
         </dl>
         <hr>
         <div class="row">

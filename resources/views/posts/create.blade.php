@@ -4,10 +4,15 @@
 
 @section("stylesheets")
   <link rel="stylesheet" href="/css/parsley.css">
+  <link rel="stylesheet" href="/css/select2.min.css">
 @endsection
 
 @section("javascript")
   <script src="/js/parsley.min.js"></script>
+  <script src="/js/select2.min.js"></script>
+  <script type="text/javascript">
+    $("#tags").select2();
+  </script>
 @endsection
 
 @section("content")
@@ -82,6 +87,28 @@
                 "class"=>"form-control",
                 "required"=>""
               )
+            )
+          }}
+          <br>
+          <!-- tag label -->
+          {{
+            Form::label(
+              "tags",
+              "Tags"
+            )
+          }}
+          <!-- tag input -->
+          {{
+            Form::select(
+              "tags",
+              $tags,
+              null,
+              [
+                "name"=>"tags[]",
+                "id"=>"tags",
+                "class"=>"form-control",
+                "multiple"=>"multiple"
+              ]
             )
           }}
           <!-- submit button -->

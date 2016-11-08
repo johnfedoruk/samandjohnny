@@ -23,6 +23,11 @@
       @if($post->category!=null)
         <p>Posted in: {{$post->category->name}}</p>
       @endif
+      <div class="tags">
+        @foreach($post->tags as $tag)
+          <span class="label label-default">{{$tag->name}}</span>
+        @endforeach
+      </div>
     </div>
   </div>
 @endsection

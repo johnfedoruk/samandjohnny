@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Post;
 use App\Category;
+use App\Tag;
 use Session;
 
 class PostController extends Controller
@@ -36,10 +37,14 @@ class PostController extends Controller
     public function create()
     {
       $categories = Category::all();
-      $array = [];
+      $cat_array = [];
       foreach($categories as $category)
-        $array[$category->id]=$category->name;
-      return view("posts.create")->withCategories($array);
+        $cat_array[$category->id]=$category->name;
+      $tags = Tag::all();
+      $tag_array = [];
+      foreach($tags as $tag)
+        $tag_array[$tag->id]=$tag->name;
+      return view("posts.create")->withCategories($cat_array)->withTags($tag_array);
     }
 
     /**
@@ -69,6 +74,8 @@ class PostController extends Controller
 
       $post->save();
 
+      $post->tags()->sync($request->tags,false);
+
       Session::flash("success","The blog post was successfully saved!");
 
       // redirect to another page (index or show, probably)
@@ -97,14 +104,28 @@ class PostController extends Controller
     public function edit($id)
     {
       $post = Post::find($id);
+      // get all categories
       $categories = Category::all();
-      $array = [];
+      $cat_array = [];
       foreach($categories as $category)
-        $array[$category->id]=$category->name;
+        $cat_array[$category->id]=$category->name;
+      // get all tags
+      $tags = Tag::all();
+      $tag_array = [];
+      foreach($tags as $tag)
+        $tag_array[$tag->id]=$tag->name;
+      // get a list of the current tags' ids
+      $curr_tags = $post->tags;
+      $curr_tag_array = [];
+      foreach($curr_tags as $curr_tag)
+        $curr_tag_array[]=$curr_tag->id;
+
       return view("posts/edit")->with(
         [
           "post"=>$post,
-          "categories"=>$array
+          "categories"=>$cat_array,
+          "tags"=>$tag_array,
+          "curr_tags"=>$curr_tag_array
         ]
       );
     }
@@ -151,6 +172,8 @@ class PostController extends Controller
       $post->category_id = $request->category_id;
 
       $post->save();
+
+      $post->tags()->sync($request->tags,true);
 
       // set flash data with success message
       Session::flash("success","The blog post was successfully saved!");

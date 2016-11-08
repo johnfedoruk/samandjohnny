@@ -79,6 +79,12 @@ class DatabaseSeeder extends Seeder
         );
       }
     }
+    protected function seedTags() {
+
+    }
+    protected function seedPostTag() {
+      
+    }
     public function run()
     {
       // $this->call(UsersTableSeeder::class);
@@ -86,5 +92,6 @@ class DatabaseSeeder extends Seeder
       $this->seedUsers();
       $this->seedCategories();
       $this->seedPosts();
+      $this->seedTags();
     }
 }

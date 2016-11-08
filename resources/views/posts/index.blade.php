@@ -54,7 +54,9 @@
               <th>{{$post->id}}</td>
               <td>{{$post->title}}</td>
               <td>{{substr($post->body,0,50)}}{{(strlen($post->body)>50)?("..."):("")}}</td>
-              <td>{{isset($post->category)?($post->category->name):("")}}</td>
+              <td>{!!isset($post->category)?(
+                "<a href=\"".route('categories.show',['id'=>$post->category->id])."\">".$post->category->name."</a>"
+                ):("<span class='label label-danger' style='font-size:15px;'>No Category</span>")!!}</td>
               <td>{!!date("M j, Y",strtotime($post->created_at))!!}{!!($post->updated_at!=$post->created_at)?("<br>".date("M j, Y",strtotime($post->updated_at))):("")!!}</td>
               <td>
                 <a href="{{route('posts.show',['id'=>$post->id])}}" class="btn btn-default">View</a>

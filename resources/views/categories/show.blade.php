@@ -114,7 +114,9 @@
           Posts:
         </dt>
         <dd>
-          {{$category->posts->count()}}
+          <span class="badge">
+            {{$category->posts->count()}}
+          </span>
         </dd>
         <br>
         <dt>

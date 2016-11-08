@@ -38,11 +38,11 @@
             <a href="{{url('blog/'.$post->slug)}}">{{url('blog/'.$post->slug)}}</a>
           </dd>
           <br>
-          @if(isset($post->category))
-            <dt>
-              Category:
-            </dt>
-            <dd>
+          <dt>
+            Category:
+          </dt>
+          <dd>
+            @if(isset($post->category))
               <span>
                 {{
                   link_to_route(
@@ -55,9 +55,11 @@
                   )
                 }}
               </span>
-            </dd>
-            <br>
-          @endif
+            @else
+              <span class='label label-danger' style='margin-left:10px;font-size:15px;'>No Category</span>
+            @endif
+          </dd>
+          <br>
           <dt>
             Created At:
           </dt>

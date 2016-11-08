@@ -73,8 +73,8 @@ class PostController extends Controller
         $post->category_id = $request->category_id;
 
       $post->save();
-
-      $post->tags()->sync($request->tags,false);
+      if(isset($request->tags))
+        $post->tags()->sync($request->tags,false);
 
       Session::flash("success","The blog post was successfully saved!");
 
@@ -173,7 +173,10 @@ class PostController extends Controller
 
       $post->save();
 
-      $post->tags()->sync($request->tags,true);
+      if(isset($request->tags))
+        $post->tags()->sync($request->tags,true);
+      else
+        $post->tags()->sync([],true);
 
       // set flash data with success message
       Session::flash("success","The blog post was successfully saved!");

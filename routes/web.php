@@ -26,10 +26,11 @@ Route::post("password/reset","Auth\ResetPasswordController@reset");
 Route::post("password/email","Auth\ForgotPasswordController@sendResetLinkEmail");
 
 // pages routes
-Route::get('/', "PagesController@getIndex");
+Route::get('/', ["uses"=>"PagesController@getIndex","as"=>"pages.home"]);
 Route::get("/home","PagesController@getIndex");
 Route::get('/about', "PagesController@getAbout");
 Route::get('/contact', "PagesController@getContact");
+Route::post("/contact","PagesController@postContact");
 
 // blog routes
 Route::get("/blog/{slug}", ["uses"=>"BlogController@getSingle","as"=>"blog.single"])

@@ -38,13 +38,15 @@
             <a href="{{url('blog/'.$post->slug)}}">{{url('blog/'.$post->slug)}}</a>
           </dd>
           <br>
-          <dt>
-            Category:
-          </dt>
-          <dd>
-            {{$post->category->name}}
-          </dd>
-          <br>
+          @if(isset($post->category))
+            <dt>
+              Category:
+            </dt>
+            <dd>
+              {{$post->category->name}}
+            </dd>
+            <br>
+          @endif
           <dt>
             Created At:
           </dt>

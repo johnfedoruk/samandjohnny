@@ -19,8 +19,8 @@ class CreatePostTagTable extends Migration
             $table->integer("post_id")->unsigned();
         });
         Schema::table('post_tag', function (Blueprint $table) {
-          $table->foreign("tag_id")->references("id")->on("tags");
-          $table->foreign("post_id")->references("id")->on("posts");
+          $table->foreign("tag_id")->references("id")->on("tags")->onDelete('cascade');
+          $table->foreign("post_id")->references("id")->on("posts")->onDelete('cascade');
         });
     }
 

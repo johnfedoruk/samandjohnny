@@ -32,7 +32,7 @@
       <div class="well">
         <dl class="dl-horizontal">
           <dt>
-            Url:
+            Post Url:
           </dt>
           <dd style="word-break:break-all;">
             <a href="{{url('blog/'.$post->slug)}}">{{url('blog/'.$post->slug)}}</a>
@@ -43,7 +43,18 @@
               Category:
             </dt>
             <dd>
-              {{$post->category->name}}
+              <span>
+                {{
+                  link_to_route(
+                    "categories.show",
+                    $post->category->name,
+                    [
+                      "id"=>$post->category->id
+                    ],
+                    []
+                  )
+                }}
+              </span>
             </dd>
             <br>
           @endif
@@ -67,7 +78,20 @@
               <hr>
             @endif
             @foreach($post->tags as $tag)
-              <span class="label label-default">{{$tag->name}}</span>
+              <span>
+                {{
+                  link_to_route(
+                    "tags.show",
+                    $tag->name,
+                    [
+                      "id"=>$tag->id
+                    ],
+                    [
+                      "class"=>"label label-default"
+                    ]
+                  )
+                }}
+              </span>
             @endforeach
           </div>
         </dl>

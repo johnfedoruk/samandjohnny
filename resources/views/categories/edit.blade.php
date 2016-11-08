@@ -45,14 +45,9 @@
         <hr>
         <div class="row">
           <div class="col-sm-6">
-            {!!
-              Html::linkRoute(
-                "categories.index",
-                "Cancel",
-                array(),
-                array("class"=>"btn btn-danger btn-block")
-              )
-            !!}
+            <button onClick="history.go(-1);return true;" class="btn btn-danger btn-block">
+              Cancel
+            </button>
           </div>
           <div class="col-sm-6">
             {{

@@ -12,7 +12,7 @@
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
       <h1>
-        Edit Category
+        Edit Tag
       </h1>
       {!!
         Form::model(
@@ -45,16 +45,9 @@
         <hr>
         <div class="row">
           <div class="col-sm-6">
-            {!!
-              Html::linkRoute(
-                "tags.index",
-                "Cancel",
-                [],
-                [
-                  "class"=>"btn btn-danger btn-block"
-                ]
-              )
-            !!}
+            <button onClick="history.go(-1);return true;" class="btn btn-danger btn-block">
+              Cancel
+            </button>
           </div>
           <div class="col-sm-6">
             {!!

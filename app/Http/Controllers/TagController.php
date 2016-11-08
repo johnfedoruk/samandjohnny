@@ -63,7 +63,8 @@ class TagController extends Controller
      */
     public function show($id)
     {
-        //
+      $tag = Tag::find($id);
+      return view("tags.show")->withTag($tag);
     }
 
     /**
@@ -92,7 +93,7 @@ class TagController extends Controller
       ];
       $this->validate($request,$rules);
 
-      $tag = new Tag;
+      $tag = Tag::find($id);
       $tag->name = $request->name;
       $tag->save();
 

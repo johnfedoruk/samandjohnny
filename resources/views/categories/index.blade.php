@@ -95,6 +95,7 @@
                   Form::close()
                 !!}
                 <a href="{{route('categories.edit',['id'=>$category->id])}}" class="btn btn-default pull-right" style="margin-right:20px;">Edit</a>
+                <a href="{{route('categories.show',['id'=>$category->id])}}" class="btn btn-default pull-right" style="margin-right:20px;">Show</a>
               </td>
             </tr>
           @endforeach

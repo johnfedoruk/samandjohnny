@@ -72,7 +72,6 @@
                 {{$tag->name}}
               </td>
               <td>
-                <a href="{{route('tags.edit',['id'=>$tag->id])}}" class="btn btn-default pull-right" style="margin-left:20px;">Edit</a>
                 {!!
                   Form::open(
                     [
@@ -95,6 +94,7 @@
                 {!!
                   Form::close()
                 !!}
+                  <a href="{{route('tags.edit',['id'=>$tag->id])}}" class="btn btn-default pull-right" style="margin-right:20px;">Edit</a>
               </td>
             </tr>
           @endforeach

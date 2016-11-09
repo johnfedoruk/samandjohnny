@@ -8,6 +8,7 @@ use App\Post;
 use App\Category;
 use App\Tag;
 use Session;
+use Purifier;
 
 class PostController extends Controller
 {
@@ -23,6 +24,8 @@ class PostController extends Controller
     {
       // create a variable and store all the blog posts in it from the Database
       $posts = Post::orderBy("id","desc")->paginate(10);
+      foreach($posts as $post)
+        $post->body = strip_tags($post->body);
 
       // return a view and pass in the above variable
       return view("posts.index")->withPosts($posts);
@@ -68,7 +71,7 @@ class PostController extends Controller
 
       $post->title = $request->title;
       $post->slug = str_slug($request->title,"-");
-      $post->body = $request->body;
+      $post->body = $this->removeScriptTags($request->body);
       if(isset($request->category_id))
         $post->category_id = $request->category_id;
 
@@ -168,7 +171,7 @@ class PostController extends Controller
 
       $post->title = $request->title;
       $post->slug = $request->slug;
-      $post->body = $request->body;
+      $post->body = $this->removeScriptTags($request->body);
       $post->category_id = $request->category_id;
 
       $post->save();
@@ -201,5 +204,8 @@ class PostController extends Controller
 
       // redirect to another page (index or show, probably)
       return redirect()->route("posts.index");
+    }
+    protected function removeScriptTags($html) {
+      return preg_replace('#<script(.*?)>(.*?)</script>#is', '', $html);
     }
 }

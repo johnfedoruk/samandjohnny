@@ -13,6 +13,11 @@
   <script type="text/javascript">
     $("#tags").select2();
   </script>
+  <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+  <script src="/js/tinymce.config.js"></script>
+  <script>
+    $(".waitToShow").fadeIn(5000);
+  </script>
 @endsection
 
 @section("content")
@@ -85,8 +90,9 @@
               "body",
               null,
               array(
-                "class"=>"form-control",
-                "required"=>""
+                "class"=>"form-control waitToShow",
+                "required"=>"",
+                "style"=>"display:none;"
               )
             )
           }}

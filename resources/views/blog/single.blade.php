@@ -21,7 +21,7 @@
           @endif
         </small>
       </h4>
-      <p>{{$post->body}}</p>
+      <p>{!!$post->body!!}</p>
       <hr>
       @if($post->category!=null)
         <small>Posted in: {{$post->category->name}}</small>

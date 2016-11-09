@@ -32,9 +32,10 @@
               <br>Edited: {{date("M j, Y",strtotime($post->updated_at))}}
             @endif
           </h5>
-          <p>
+          <div>
             {{substr($post->body,0,$len)}}{{(strlen($post->body)>$len)?("..."):("")}}
-          </p>
+          </div>
+          <br>
           <a href="{{url('blog/'.$post->slug)}}" class="btn btn-primary">Read More &rarr;</a>
         </div>
         @if($post!=$posts->last())

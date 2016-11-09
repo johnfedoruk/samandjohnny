@@ -5,6 +5,11 @@
 @section("stylesheets")
   <link rel="stylesheet" href="/css/parsley.css">
   <link rel="stylesheet" href="/css/select2.min.css">
+  <style>
+    .waitToShow {
+      display: none;
+    }
+  </style>
 @endsection
 
 @section("javascript")
@@ -12,6 +17,11 @@
   <script src="/js/select2.min.js"></script>
   <script type="text/javascript">
     $("#tags").select2();
+  </script>
+  <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+  <script src="/js/tinymce.config.js"></script>
+  <script>
+    $(".waitToShow").fadeIn(5000);
   </script>
 @endsection
 
@@ -87,11 +97,13 @@
           "body",
           null,
           [
-            "class"=>"form-control",
-            "required"=>""
+            "class"=>"form-control waitToShow",
+            "required"=>"",
+            "style"=>"display:none;"
           ]
         )
       }}
+      <br>
       <br>
       <!-- tag label -->
       {{
@@ -110,7 +122,7 @@
             "name"=>"tags[]",
             "id"=>"tags",
             "class"=>"form-control",
-            "multiple"=>"multiple"
+            "multiple"=>"multiple",
           ]
         )
       }}

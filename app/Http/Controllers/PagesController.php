@@ -12,6 +12,8 @@ use App\Post;
 class PagesController extends Controller {
   public function getIndex() {
     $posts = Post::orderBy("id","desc")->take(5)->get();
+    foreach($posts as $post)
+      $post->body = strip_tags($post->body);
     return view('pages.welcome')->withPosts($posts)->withLen(255);
   }
   public function getAbout() {

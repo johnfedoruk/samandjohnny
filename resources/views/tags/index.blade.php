@@ -31,7 +31,8 @@
               "name",
               "",
               [
-                "class"=>"form-control"
+                "class"=>"form-control",
+                "autofocus"=>""
               ]
             )
           !!}

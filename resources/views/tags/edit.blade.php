@@ -38,7 +38,9 @@
             "name",
             $tag->name,
             [
-              "class"=>"form-control"
+              "class"=>"form-control",
+              "autofocus"=>"",
+              "onfocus"=>"var temp_value=this.value; this.value=''; this.value=temp_value;"
             ]
           )
         !!}

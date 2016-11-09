@@ -45,7 +45,8 @@
               array(
                 "class"=>"form-control",
                 "required"=>"",
-                "maxlength"=>"255"
+                "maxlength"=>"255",
+                "autofocus"=>""
               )
             )
           }}

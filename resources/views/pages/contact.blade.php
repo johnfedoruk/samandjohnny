@@ -19,7 +19,7 @@
         {{csrf_field()}}
         <div class="form-group">
           <label>Email</label>
-          <input id="email" name="email" class="form-control" required="" type="email"/>
+          <input id="email" name="email" class="form-control" required="" type="email" autofocus=""/>
         </div>
         <div class="form-group">
           <label>Subject</label>

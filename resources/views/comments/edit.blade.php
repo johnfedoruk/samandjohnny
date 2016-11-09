@@ -36,7 +36,9 @@
             $comment->comment,
             [
               "class"=>"form-control",
-              "style"=>"height:80px;resize:none;"
+              "style"=>"height:80px;resize:none;",
+              "autofocus"=>"",
+              "onfocus"=>"var temp_value=this.value; this.value=''; this.value=temp_value;"
             ]
           )
         }}

@@ -13,12 +13,14 @@
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
       <h1>{{$post->title}}</h1>
-      <h5>
-        Published: {{date("M j, Y",strtotime($post->created_at))}}
-        @if($post->created_at!=$post->updated_at)
-          <br>Edited: {{date("M j, Y",strtotime($post->updated_at))}}
-        @endif
-      </h5>
+      <h4>
+        <small>
+          Published: {{date("M j, Y",strtotime($post->created_at))}}
+          @if($post->created_at!=$post->updated_at)
+            <br>Edited: {{date("M j, Y",strtotime($post->updated_at))}}
+          @endif
+        </small>
+      </h4>
       <p>{{$post->body}}</p>
       <hr>
       @if($post->category!=null)
@@ -32,7 +34,9 @@
       <hr>
     </div>
   </div>
-  @if(Auth::check())
+
+
+
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
         {{
@@ -54,10 +58,11 @@
           {{
             Form::textarea(
               "comment",
-              "",
+              (Auth::check())?(""):("Log in to leave a comment"),
               [
                 "class"=>"form-control",
-                "style"=>"height:80px;resize:none;"
+                "style"=>"height:80px;resize:none;",
+                (Auth::check())?("autofocus"):("disabled")=>""
               ]
             )
           }}
@@ -66,7 +71,8 @@
               Form::submit(
                 "Submit",
                 [
-                  "class"=>"btn btn-success"
+                  "class"=>"btn btn-success",
+                  (Auth::check())?(""):("disabled")=>""
                 ]
               )
             }}
@@ -76,18 +82,35 @@
         }}
       </div>
     </div>
-    <hr>
-  @endif
+
+
+
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
+      <br>
+      <h3>
+        <span class="glyphicon glyphicon-comment"></span>
+        <font style="font-size:27px;">Comments</font>
+      </h3>
+      <br>
+      @if($post->comments->count()<1)
+        <h2>
+          <small>
+            No comments..
+          </small>
+        </h2>
+      @endif
       @foreach($post->comments->reverse() as $comment)
         <div class="bs-callout" style="position:relative;">
-          <strong>
+          <h4 style="margin:5px 0">
             {{$comment->user->name}}
-          </strong>
-          &bull;
+          </h4>
           <small>
             {{date("M j, Y \a\\t g:i A",strtotime($comment->created_at))}}
+            @if($comment->updated_at!=$comment->created_at)
+              <br>edited
+              {{date("M j, Y \a\\t g:i A",strtotime($comment->updated_at))}}
+            @endif
           </small>
           @if(isset($user->id)&&$comment->user->id==$user->id)
             {!!
@@ -127,8 +150,10 @@
               Form::close()
             !!}
           @endif
-          <div>
-            {!! nl2br(e($comment->comment)) !!}
+          <div style="margin-top:10px;">
+            <p>
+              {!! nl2br(e($comment->comment)) !!}
+            </p>
           </div>
         </div>
         @if($comment!=$post->comments->last())

@@ -31,7 +31,7 @@
         </tr>
       </thead>
       <tbody>
-        @foreach($category->posts as $post)
+        @foreach($category->posts->reverse() as $post)
           <tr>
             <th>
               {{$post->id}}
@@ -123,15 +123,15 @@
           Created At:
         </dt>
         <dd>
-          {{date("l, M j, Y \a\\t h:ia",strtotime($tag->created_at))}}
+          {{date("l, M j, Y \a\\t h:ia",strtotime($category->created_at))}}
         </dd>
-        @if($tag->created_at!=$tag->updated_at)
+        @if($category->created_at!=$category->updated_at)
           <br>
           <dt>
             Last Update:
           </dt>
           <dd>
-            {{date("l, M j, Y \a\\t h:ia",strtotime($tag->updated_at))}}
+            {{date("l, M j, Y \a\\t h:ia",strtotime($category->updated_at))}}
           </dd>
         @endif
       </dl>

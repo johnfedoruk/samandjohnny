@@ -46,7 +46,9 @@
           [
             "class"=>"form-control input-lg",
             "required"=>"",
-            "maxlength"=>"25"
+            "maxlength"=>"25",
+            "autofocus"=>"",
+            "onfocus"=>"var temp_value=this.value; this.value=''; this.value=temp_value;"
           ]
         )
       }}

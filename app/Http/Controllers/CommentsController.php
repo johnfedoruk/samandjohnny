@@ -76,6 +76,7 @@ class CommentsController extends Controller
     public function edit($id)
     {
       $comment = Comment::find($id);
+      $this->authorizeUser($comment);
       return view("comments.edit")->withComment($comment);
     }
 
@@ -95,9 +96,7 @@ class CommentsController extends Controller
           ]
         );
         $comment = Comment::find($id);
-        if(!Auth::check()||$comment->user->id!=Auth::user()->id) {
-          return redirect()->route("blog.single",[$comment->post->slug])->withErrors(["Unauthorized Action!"]);
-        }
+        $this->authorizeUser($comment);
         $comment->comment = $request->comment;
         $comment->save();
 
@@ -113,9 +112,14 @@ class CommentsController extends Controller
     public function destroy($id)
     {
       $comment = Comment::find($id);
-      if($comment->user->id==Auth::user()->id) // or has permission to...
-        $comment->delete();
+      $this->authorizeUser($comment);
+      $comment->delete();
       Session::flash("success","Comment was successfully deleted!");
       return redirect()->back();
+    }
+    protected function authorizeUser($comment) {
+      if(!Auth::check()||$comment->user->id!=Auth::user()->id) {
+        return redirect()->route("blog.single",[$comment->post->slug])->withErrors(["Unauthorized Action!"]);
+      }
     }
 }

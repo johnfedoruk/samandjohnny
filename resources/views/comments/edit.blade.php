@@ -10,52 +10,49 @@
 @endsection
 
 @section("content")
-  @if(Auth::check()||true)
-    <div class="row">
-      <div class="col-md-8 col-md-offset-2">
-        {!!
-          Form::model(
-            $comment,
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      {!!
+        Form::model(
+          $comment,
+          [
+            "method"=>"PUT",
+            "route"=>[
+              "comments.update",
+              $comment->id
+            ]
+          ]
+        )
+      !!}
+        {{
+          Form::label(
+            "comment",
+            "Comment:"
+          )
+        }}
+        {{
+          Form::textarea(
+            "comment",
+            $comment->comment,
             [
-              "method"=>"PUT",
-              "route"=>[
-                "comments.update",
-                $comment->id
-              ]
+              "class"=>"form-control",
+              "style"=>"height:80px;resize:none;"
             ]
           )
-        !!}
+        }}
+        <div class="row text-center" style="margin-top:10px;">
           {{
-            Form::label(
-              "comment",
-              "Comment:"
-            )
-          }}
-          {{
-            Form::textarea(
-              "comment",
-              $comment->comment,
+            Form::submit(
+              "Submit",
               [
-                "class"=>"form-control",
-                "style"=>"height:80px;resize:none;"
+                "class"=>"btn btn-success"
               ]
             )
           }}
-          <div class="row text-center" style="margin-top:10px;">
-            {{
-              Form::submit(
-                "Submit",
-                [
-                  "class"=>"btn btn-success"
-                ]
-              )
-            }}
-          </div>
-        {{
-          Form::close()
-        }}
-      </div>
+        </div>
+      {{
+        Form::close()
+      }}
     </div>
-    <hr>
-  @endif
+  </div>
 @endsection

@@ -32,6 +32,12 @@ Route::get('/about', "PagesController@getAbout");
 Route::get('/contact', "PagesController@getContact");
 Route::post("/contact","PagesController@postContact");
 
+// comments routes
+Route::get("comments/{post_id}",["uses"=>"CommentsController@edit","as"=>"comments.edit"]);
+Route::put("comments/{post_id}",["uses"=>"CommentsController@update","as"=>"comments.update"]);
+Route::post("comments/{post_id}",["uses"=>"CommentsController@store","as"=>"comments.store"]);
+Route::delete("comments/{post_id}",["uses"=>"CommentsController@destroy","as"=>"comments.destroy"]);
+
 // blog routes
 Route::get("/blog/{slug}", ["uses"=>"BlogController@getSingle","as"=>"blog.single"])
   ->where("slug","[\w\d\-\_]+");

@@ -20,4 +20,11 @@ class BlogController extends Controller
     $user = Auth::user();
     return view("blog.single")->withPost($post)->withUser($user);
   }
+
+  public function showBlogsForTag($slug) {
+    return view("blog.tags");
+  }
+  public function showBlogsForCategory($slug) {
+    return "hello world ".$slug;
+  }
 }

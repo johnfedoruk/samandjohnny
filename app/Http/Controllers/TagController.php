@@ -41,17 +41,27 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
+      // get the slug
+      $request->merge(
+        [
+          "slug"=>str_slug($request->name,"-")
+        ]
+      );
+      // create the rules
       $rules = [
-        "name"=>"required|max:255|unique:tags,name"
+        "name"=>"required|max:255|unique:tags,name",
+        "slug"=>"required|unique:tags,slug"
       ];
+      // validate
       $this->validate($request,$rules);
-
+      // store
       $tag = new Tag;
       $tag->name = $request->name;
+      $tag->slug = $request->slug;
       $tag->save();
-
+      // flash success
       Session::flash("success","The tag was successfully saved!");
-
+      // redirect
       return redirect()->route("tags.index");
     }
 
@@ -88,17 +98,37 @@ class TagController extends Controller
      */
     public function update(Request $request, $id)
     {
-      $rules = [
-        "name"=>"required|max:255|unique:tags,name"
-      ];
-      $this->validate($request,$rules);
-
+      // find the tag
       $tag = Tag::find($id);
-      $tag->name = $request->name;
-      $tag->save();
-
-      Session::flash("success","The tag was successfully saved!");
-
+      // determine if the name has changed
+      if($request->name==$tag->name) {
+        // flash success
+        Session::flash("success","No changes made to the tag!");
+      }
+      else {
+        // get the new slug
+        $request->merge(
+          [
+            "slug"=>str_slug($request->name,"-")
+          ]
+        );
+        // create rules
+        $rules = [
+          "name"=>"required|max:255|unique:tags,name"
+        ];
+        // add rule if slug has changed
+        if($request->slug!=$tag->slug)
+          $rules["slug"]="required|unique:tags,slug";
+        // validate
+        $this->validate($request,$rules);
+        // store updated information
+        $tag->name = $request->name;
+        $tag->slug = $request->slug;
+        $tag->save();
+        // flash success
+        Session::flash("success","The tag was successfully saved!");
+      }
+      // redirect
       return redirect()->route("tags.index");
     }
 

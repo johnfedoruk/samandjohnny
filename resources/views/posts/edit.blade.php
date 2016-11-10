@@ -1,13 +1,15 @@
 @extends("main")
 
-@section("title","View Post")
+@section("title","Edit Post")
 
 @section("stylesheets")
   <link rel="stylesheet" href="/css/parsley.css">
   <link rel="stylesheet" href="/css/select2.min.css">
+  <link href="/plugins/jQuery.filer-1.3.0/css/jquery.filer.css" type="text/css" rel="stylesheet" />
+  <link href="/plugins/jQuery.filer-1.3.0/css/themes/jquery.filer-dragdropbox-theme.css" type="text/css" rel="stylesheet" />
   <style>
-    .waitToShow {
-      display: none;
+    .waitToShow{
+      opacity:0;
     }
   </style>
 @endsection
@@ -20,6 +22,34 @@
   </script>
   <script src="/plugins/tinymce/js/tinymce/tinymce.min.js"></script>
   <script src="/js/tinymce.config.js"></script>
+  <script src="/plugins/jQuery.filer-1.3.0/js/jquery.filer.min.js"></script>
+  <script>
+    $(document).ready(
+      function() {
+        $filter = $('#filer_input').filer(
+          {
+            limit: 1,
+            maxSize: 4,
+            extensions: ["jpg", "png", "gif"],
+            showThumbs: true
+          }
+        );
+      }
+    );
+    function readURL(input) {
+      var ext = input.files[0]['name'].substring(input.files[0]['name'].lastIndexOf('.') + 1).toLowerCase();
+      if (input.files && input.files[0] && (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          $('#featured_image_preview').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+      }
+      else {
+
+      }
+    }
+  </script>
   <script>
     $(".waitToShow").fadeIn(5000);
   </script>
@@ -82,18 +112,23 @@
         )
       }}
       <br>
-      <!-- image label -->
-      {{
-        Form::label(
-          "featured_image",
-          "Upload Featured Image:"
-        )
-      }}
-      <br>
-      <!-- image input -->
-      <label class="btn btn-default btn-file">
-        Browse <input type="file" name='featured_image' style="display: none;">
-      </label>
+      <div class="row">
+        <div class="col-md-8">
+          <!-- image label -->
+          {{
+            Form::label(
+              "featured_image",
+              "Upload Featured Image:"
+            )
+          }}
+          <br>
+          <!-- image input -->
+          <input type="file" onchange="readURL(this);" name="featured_image" id="filer_input" multiple="multiple" class="waitToShow">
+        </div>
+        <div class="col-md-4">
+          <img id="featured_image_preview" src="{{$post->featuredImageExists()?$post->getFeaturedImagePath():''}}" />
+        </div>
+      </div>
       <br>
       <!-- body label -->
       {{
@@ -180,8 +215,5 @@
       </div>
     </div>
   </div>
-  <iframe id="form_target" name="form_target" style="display:none"></iframe>
-<form id="my_form" action="/upload/" target="form_target" method="post" enctype="multipart/form-data" style="width:0px;height:0;overflow:hidden">
-  <input name="image" type="file" onchange="$('#my_form').submit();this.value='';">
 </form>
 @endsection

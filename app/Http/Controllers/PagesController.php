@@ -8,13 +8,17 @@ use Mail;
 use Session;
 
 use App\Post;
+use App\Category;
+use App\Tag;
 
 class PagesController extends Controller {
   public function getIndex() {
-    $posts = Post::orderBy("id","desc")->take(20)->get();
+    $posts = Post::orderBy("id","desc")->paginate(10);
+    $categories = Category::orderBy("id","desc")->get();
+    $tags = Tag::orderBy("id","desc")->get();
     foreach($posts as $post)
       $post->body = strip_tags($post->body);
-    return view('pages.welcome')->withPosts($posts)->withLen(255);
+    return view('pages.welcome')->withPosts($posts)->withLen(255)->withCategories($categories)->withTags($tags);
   }
   public function getAbout() {
     return view('pages.about');

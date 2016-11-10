@@ -11,7 +11,7 @@
     .waitToShow{
       opacity:0;
     }
-    </style>
+  </style>
 @endsection
 
 @section("javascript")
@@ -25,38 +25,35 @@
 
   <script src="/plugins/jQuery.filer-1.3.0/js/jquery.filer.min.js"></script>
   <script>
-    $(document).ready(function() {
-      $('#filer_input').filer(
-        {
-          limit: 1,
-          maxSize: 4,
-          extensions: ["jpg", "png", "gif"],
-          showThumbs: true
+    $(document).ready(
+      function() {
+        $filter = $('#filer_input').filer(
+          {
+            limit: 1,
+            maxSize: 4,
+            extensions: ["jpg", "png", "gif"],
+            showThumbs: true
+          }
+        );
+      }
+    );
+    function readURL(input) {
+      var ext = input.files[0]['name'].substring(input.files[0]['name'].lastIndexOf('.') + 1).toLowerCase();
+      if (input.files && input.files[0] && (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          $('#featured_image_preview').attr('src', e.target.result);
         }
-      );
-    });
+        reader.readAsDataURL(input.files[0]);
+      }
+      else {
+
+      }
+    }
   </script>
-  <!--
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script src="/plugins/jQuery-File-Upload-9.14.0/js/vendor/jquery.ui.widget.js"></script>
-  <script src="/plugins/jQuery-File-Upload-9.14.0/js/jquery.iframe-transport.js"></script>
-  <script src="/plugins/jQuery-File-Upload-9.14.0/js/jquery.fileupload.js"></script>
   <script>
-    $(function () {
-        $('#filer_input').fileupload({
-            dataType: 'json',
-            done: function (e, data) {
-                $.each(data.result.files, function (index, file) {
-                    $('<p/>').text(file.name).appendTo(document.body);
-                });
-            }
-        });
-    });
+    $(".waitToShow").fadeIn(5000);
   </script>
--->
-<script>
-  $(".waitToShow").fadeIn(5000);
-</script>
 @endsection
 
 @section("content")
@@ -115,20 +112,23 @@
             )
           }}
           <br>
-          <!-- image label -->
-          {{
-            Form::label(
-              "featured_image",
-              "Upload Featured Image:"
-            )
-          }}
-          <br>
-          <!-- image input -->
-          <!--
-          <label class="btn btn-default btn-file">
-            Browse <input type="file" name='featured_image' style="display: none;">
-          </label>-->
-          <input type="file" name="featured_image" id="filer_input" multiple="multiple" class="waitToShow">
+          <div class="row">
+            <div class="col-md-8">
+              <!-- image label -->
+              {{
+                Form::label(
+                  "featured_image",
+                  "Upload Featured Image:"
+                )
+              }}
+              <br>
+              <!-- image input -->
+              <input type="file" onchange="readURL(this);" name="featured_image" id="filer_input" multiple="multiple" class="waitToShow">
+            </div>
+            <div class="col-md-4">
+              <img id="featured_image_preview" src="" />
+            </div>
+          </div>
           <br>
           <!-- body label -->
           {{

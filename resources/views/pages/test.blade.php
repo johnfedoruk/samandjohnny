@@ -9,18 +9,12 @@
 @endsection
 
 @section("content")
-  <!--http://www.desktopimages.org/pictures/2015/0504/1/hacker-hacking-hack-anarchy-virus-internet-computer-sadic-anonymous-dark-code-binary-images-200620.jpg-->
   <div class="row">
     <div class="col-md-12">
-<!--      <div class="jumbotron" style="color: white;background:linear-gradient(
-        rgba(0, 0, 0, 0.5),
-        rgba(255, 255, 255, 1)
-        ),url('http://www.desktopimages.org/pictures/2015/0504/1/hacker-hacking-hack-anarchy-virus-internet-computer-sadic-anonymous-dark-code-binary-images-200620.jpg');background-size:cover;">
--->
-      <div class="jumbotron" style="color: white;background:linear-gradient(
-        rgba(0, 0, 0, 0.4),
-        rgba(255, 255, 255, 1)
-        ),url('/images/static/hacker.jpg');background-size:cover;">
+      <div class="jumbotron" style="background:    linear-gradient(
+  rgba(255, 255, 255, 0.15),
+  rgba(255, 255, 255, 1)
+  ),url('http://www.desktopimages.org/pictures/2015/0504/1/hacker-hacking-hack-anarchy-virus-internet-computer-sadic-anonymous-dark-code-binary-images-200620.jpg');background-size:cover;">
         <h1>Welcome {{Auth::check()?Auth::user()->name:"to my blog!!"}}</h1>
         <p class="lead">Thank you for visiting</p>
         <p><a class="btn btn-primary btn-lg" href="http://johnfedoruk.co.uk" target="_blank" role="button">View my profile</a></p>
@@ -84,7 +78,7 @@
       </div>
       <br>
       <h3>Tags</h3>
-      <div class="panel panel-default" style="padding:15px;">
+      <div class="well">
         <div class="tags text-center">
           @foreach($tags as $tag)
           <a class="label label-default" style="margin:5px;" href="{{url("tag/".$tag->slug."/blogs")}}">

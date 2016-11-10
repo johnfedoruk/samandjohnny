@@ -42,6 +42,9 @@ Route::delete("comments/{post_id}",["uses"=>"CommentsController@destroy","as"=>"
 Route::get("/blog/{slug}", ["uses"=>"BlogController@getSingle","as"=>"blog.single"])
   ->where("slug","[\w\d\-\_]+");
 Route::get("/blog", ["uses"=>"BlogController@getIndex","as"=>"blog.index"]);
+Route::get("/tag/{slug}/blogs","BlogController@showBlogsForTag");
+Route::get("/category/{slug}/blogs","BlogController@showBlogsForCategory");
+
 
 // posts routes
 Route::resource("posts","PostController");

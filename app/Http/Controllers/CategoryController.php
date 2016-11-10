@@ -40,22 +40,26 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-      // validate
-      $this->validate(
-        $request,
+      // get the slug
+      $request->merge(
         [
-          "name" => "required|max:255|unique:categories,name",
+          "slug"=>str_slug($request->name)
         ]
       );
-
-      // save the data
+      // create the rules
+      $rules = [
+        "name"=>"required|max:255|unique:categories,name",
+        "slug"=>"required|unique:tags,slug"
+      ];
+      // validate
+      $this->validate($request,$rules);
+      // store
       $category = new Category;
       $category->name = $request->name;
+      $category->slug = $request->slug;
       $category->save();
-
-      // create a flash message
+      // flash success
       Session::flash("success","Category successfully saved!");
-
       // redirect
       return redirect()->route("categories.index");
     }
@@ -93,17 +97,37 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+      // find the category
       $category = Category::find($id);
-      $this->validate(
-        $request,
-        [
-          "name" => "required|max:255|unique:categories,name",
-        ]
-      );
-
-      $category->name = $request->name;
-      $category->save();
-
+      // determine if the name has changed
+      if($request->name==$category->name) {
+        // flash success
+        Session::flash("success","No changes made to the category!");
+      }
+      else {
+        // get the new slug
+        $request->merge(
+          [
+            "slug"=>str_slug($request->name,"-")
+          ]
+        );
+        // create rules
+        $rules = [
+          "name"=>"required|max:255|unique:tags,name"
+        ];
+        // add rule if slug has changed
+        if($request->slug!=$category->slug)
+          $rules["slug"]="required|unique:categories,slug";
+        // validate
+        $this->validate($request,$rules);
+        // store updated information
+        $category->name = $request->name;
+        $category->slug = $request->slug;
+        $category->save();
+        // flash success
+        Session::flash("success","The category was successfully saved!");
+      }
+      // redirect
       return redirect()->route("categories.index");
     }
 

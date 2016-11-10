@@ -69,6 +69,10 @@ tinymce.init(
     content_css: [
       '//fast.fonts.net/cssapi/e6dc9b99-64fe-4292-ad98-6974f93cd2a2.css',
       '//www.tinymce.com/css/codepen.min.css'
-    ]
+    ],
+    relative_urls : false,
+remove_script_host : true,
+document_base_url : "/",
+convert_urls : true
   }
 );

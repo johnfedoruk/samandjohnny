@@ -59,11 +59,18 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+      // get the slug
+      $request->merge(
+        [
+          "slug"=>str_slug($request->title,"-")
+        ]
+      );
       // validate the data
       $rules = [
         "title" => "required|max:255|unique:posts,title",
         "body" => "required",
-        "category_id" => "required|integer|exists:categories,id"
+        "category_id" => "required|integer|exists:categories,id",
+        "slug"=>"required|unique:posts,slug"
       ];
       $this->validate($request,$rules);
 
@@ -145,7 +152,6 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-
       // get the slug
       $request->merge(
         [
@@ -215,6 +221,12 @@ class PostController extends Controller
     }
     protected function saveFeaturedImage(Request $request,Post $post) {
       if($request->hasFile('featured_image')) {
+        $this->validate(
+          $request,
+          [
+            "featured_image"=>"image"
+          ]
+        );
         $image = $request->file('featured_image');
         $filename = $post->id.".jpg";
         $location = public_path("images/".$filename);

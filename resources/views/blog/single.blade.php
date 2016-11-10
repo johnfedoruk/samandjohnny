@@ -28,11 +28,11 @@
       <p>{!!$post->body!!}</p>
       <hr>
       @if($post->category!=null)
-        <small>Posted in: {{$post->category->name}}</small>
+        <small>Posted in: <a href="{{url("category/".$post->category->slug."/blogs")}}">{{$post->category->name}}</a></small>
       @endif
       <div class="tags">
         @foreach($post->tags as $tag)
-          <span class="label label-default">{{$tag->name}}</span>
+          <a href="{{url("tag/".$tag->slug."/blogs")}}" class="label label-default">{{$tag->name}}</a>
         @endforeach
       </div>
       <hr>

@@ -18,7 +18,7 @@
         ),url('http://www.desktopimages.org/pictures/2015/0504/1/hacker-hacking-hack-anarchy-virus-internet-computer-sadic-anonymous-dark-code-binary-images-200620.jpg');background-size:cover;">
 -->
       <div class="jumbotron" style="color: white;background:linear-gradient(
-        rgba(0, 0, 0, 0.4),
+        rgba(0, 0, 0, 0.5),
         rgba(255, 255, 255, 1)
         ),url('/images/static/hacker.jpg');background-size:cover;">
         <h1>Welcome {{Auth::check()?Auth::user()->name:"to my blog!!"}}</h1>

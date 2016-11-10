@@ -15,7 +15,7 @@
       <h1>{{$post->title}}</h1>
       <br>
       @if($post->featuredImageExists())
-        <img class="img-responsive center-block" src="{{$post->getFeaturedImagePath()}}" alt="{{$post->title}}"/>
+        <img class="thumbnail img-responsive center-block" src="{{$post->getFeaturedImagePath()}}" alt="{{$post->title}}"/>
       @endif
       <h4>
         <small>

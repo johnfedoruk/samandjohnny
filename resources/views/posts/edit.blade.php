@@ -18,7 +18,7 @@
   <script type="text/javascript">
     $("#tags").select2();
   </script>
-  <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+  <script src="/plugins/tinymce/js/tinymce/tinymce.min.js"></script>
   <script src="/js/tinymce.config.js"></script>
   <script>
     $(".waitToShow").fadeIn(5000);
@@ -27,17 +27,17 @@
 
 @section("content")
   <div class="row">
-    {!! Form::model(
+    {!!
+      Form::model(
       $post,
       [
         "method"=>"PUT",
         "route"=>[
           "posts.update",
           $post->id
-        ]
-      ],
-      [
-        "data-parsley-validate"=>""
+        ],
+        "data-parsley-validate"=>"",
+        "files"=>"true"
       ]
     ) !!}
     <div class="col-md-8">
@@ -52,7 +52,7 @@
       {{
         Form::text(
           "title",
-          null,
+          $post->title,
           [
             "class"=>"form-control input-lg",
             "required"=>"",
@@ -81,6 +81,20 @@
           ]
         )
       }}
+      <br>
+      <!-- image label -->
+      {{
+        Form::label(
+          "featured_image",
+          "Upload Featured Image:"
+        )
+      }}
+      <br>
+      <!-- image input -->
+      <label class="btn btn-default btn-file">
+        Browse <input type="file" name='featured_image' style="display: none;">
+      </label>
+      <br>
       <!-- body label -->
       {{
         Form::label(
@@ -95,7 +109,7 @@
       {{
         Form::textarea(
           "body",
-          null,
+          $post->body,
           [
             "class"=>"form-control waitToShow",
             "required"=>"",
@@ -166,4 +180,8 @@
       </div>
     </div>
   </div>
+  <iframe id="form_target" name="form_target" style="display:none"></iframe>
+<form id="my_form" action="/upload/" target="form_target" method="post" enctype="multipart/form-data" style="width:0px;height:0;overflow:hidden">
+  <input name="image" type="file" onchange="$('#my_form').submit();this.value='';">
+</form>
 @endsection

@@ -14,6 +14,9 @@
       <h1>
         {{$post->title}}
       </h1>
+      @if($post->featuredImageExists())
+        <img class="img-responsive center-block" src="{{$post->getFeaturedImagePath()}}" alt="{{$post->title}}"/>
+      @endif
       <p class='lead'>
         {!!$post->body!!}
       </p>

@@ -9,6 +9,7 @@ use App\Category;
 use App\Tag;
 use Session;
 use Purifier;
+use Image;
 
 class PostController extends Controller
 {
@@ -78,6 +79,8 @@ class PostController extends Controller
       $post->save();
       if(isset($request->tags))
         $post->tags()->sync($request->tags,false);
+
+      $this->saveFeaturedImage($request,$post);
 
       Session::flash("success","The blog post was successfully saved!");
 
@@ -171,10 +174,12 @@ class PostController extends Controller
 
       $post->title = $request->title;
       $post->slug = $request->slug;
-      $post->body = $this->removeScriptTags($request->body);
+      $post->body = $this->processPost($request->body);
       $post->category_id = $request->category_id;
 
       $post->save();
+
+      $this->saveFeaturedImage($request,$post);
 
       if(isset($request->tags))
         $post->tags()->sync($request->tags,true);
@@ -207,5 +212,23 @@ class PostController extends Controller
     }
     protected function removeScriptTags($html) {
       return preg_replace('#<script(.*?)>(.*?)</script>#is', '', $html);
+    }
+    protected function saveFeaturedImage(Request $request,Post $post) {
+      if($request->hasFile('featured_image')) {
+        $image = $request->file('featured_image');
+        $filename = $post->id.".jpg";
+        $location = public_path("images/".$filename);
+        Image::make($image)->resize(
+          800,
+          null,
+          function($constraint) {
+            $constraint->aspectRatio();
+            $constraint->upsize();
+          }
+        )->encode("jpg")->save($location);
+      }
+    }
+    protected function processPost($post) {
+      return $this->removeScriptTags($post);
     }
 }

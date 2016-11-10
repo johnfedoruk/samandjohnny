@@ -5,6 +5,13 @@
 @section("stylesheets")
   <link rel="stylesheet" href="/css/parsley.css">
   <link rel="stylesheet" href="/css/select2.min.css">
+  <link href="/plugins/jQuery.filer-1.3.0/css/jquery.filer.css" type="text/css" rel="stylesheet" />
+  <link href="/plugins/jQuery.filer-1.3.0/css/themes/jquery.filer-dragdropbox-theme.css" type="text/css" rel="stylesheet" />
+  <style>
+    .waitToShow{
+      opacity:0;
+    }
+    </style>
 @endsection
 
 @section("javascript")
@@ -13,11 +20,43 @@
   <script type="text/javascript">
     $("#tags").select2();
   </script>
-  <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+  <script src="/plugins/tinymce/js/tinymce/tinymce.min.js"></script>
   <script src="/js/tinymce.config.js"></script>
+
+  <script src="/plugins/jQuery.filer-1.3.0/js/jquery.filer.min.js"></script>
   <script>
-    $(".waitToShow").fadeIn(5000);
+    $(document).ready(function() {
+      $('#filer_input').filer(
+        {
+          limit: 1,
+          maxSize: 4,
+          extensions: ["jpg", "png", "gif"],
+          showThumbs: true
+        }
+      );
+    });
   </script>
+  <!--
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="/plugins/jQuery-File-Upload-9.14.0/js/vendor/jquery.ui.widget.js"></script>
+  <script src="/plugins/jQuery-File-Upload-9.14.0/js/jquery.iframe-transport.js"></script>
+  <script src="/plugins/jQuery-File-Upload-9.14.0/js/jquery.fileupload.js"></script>
+  <script>
+    $(function () {
+        $('#filer_input').fileupload({
+            dataType: 'json',
+            done: function (e, data) {
+                $.each(data.result.files, function (index, file) {
+                    $('<p/>').text(file.name).appendTo(document.body);
+                });
+            }
+        });
+    });
+  </script>
+-->
+<script>
+  $(".waitToShow").fadeIn(5000);
+</script>
 @endsection
 
 @section("content")
@@ -31,7 +70,8 @@
           Form::open(
             array(
               "route"=>"posts.store",
-              "data-parsley-validate"=>""
+              "data-parsley-validate"=>"",
+              "files"=>"true"
             )
           )
         !!}
@@ -74,14 +114,27 @@
               ]
             )
           }}
+          <br>
+          <!-- image label -->
+          {{
+            Form::label(
+              "featured_image",
+              "Upload Featured Image:"
+            )
+          }}
+          <br>
+          <!-- image input -->
+          <!--
+          <label class="btn btn-default btn-file">
+            Browse <input type="file" name='featured_image' style="display: none;">
+          </label>-->
+          <input type="file" name="featured_image" id="filer_input" multiple="multiple" class="waitToShow">
+          <br>
           <!-- body label -->
           {{
             Form::label(
               "body",
-              "Body",
-              array(
-                "style"=>"margin-top:20px;"
-              )
+              "Body"
             )
           }}
           <!-- body input -->

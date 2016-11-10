@@ -23,25 +23,31 @@
   </div>
   <div class="row">
     <div class="col-md-8">
-      @foreach($posts as $post)
-        <div class="post">
-          <h3>{{$post->title}}</h3>
-          <h5>
-            Published: {{date("M j, Y",strtotime($post->created_at))}}
-            @if($post->created_at!=$post->updated_at)
-              <br>Edited: {{date("M j, Y",strtotime($post->updated_at))}}
-            @endif
-          </h5>
-          <div>
-            {{substr($post->body,0,$len)}}{{(strlen($post->body)>$len)?("..."):("")}}
-          </div>
-          <br>
-          <a href="{{url('blog/'.$post->slug)}}" class="btn btn-primary">Read More &rarr;</a>
-        </div>
-        @if($post!=$posts->last())
-          <hr>
-        @endif
-      @endforeach
+      <table>
+        @foreach($posts as $post)
+          <tr>
+            <td class="col-md-3">
+              @if($post->featuredImageExists())
+                <img class="img-responsive" src="{{$post->getFeaturedImagePath()}}" alt="{{$post->title}}"/>
+              @endif
+            </td>
+            <td class="col-md-9">
+              <h3>{{$post->title}}</h3>
+              <h5>
+                Published: {{date("M j, Y",strtotime($post->created_at))}}
+                @if($post->created_at!=$post->updated_at)
+                  <br>Edited: {{date("M j, Y",strtotime($post->updated_at))}}
+                @endif
+              </h5>
+              <div>
+                {{substr($post->body,0,$len)}}{{(strlen($post->body)>$len)?("..."):("")}}
+              </div>
+              <br>
+              <a href="{{url('blog/'.$post->slug)}}" class="btn btn-primary">Read More &rarr;</a>
+            </td>
+          </tr>
+        @endforeach
+      </table>
     </div>
     <div class="col-md-3 col-md-offset-1">
       <h3>Sidebar</h3>

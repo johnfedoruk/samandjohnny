@@ -13,6 +13,10 @@
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
       <h1>{{$post->title}}</h1>
+      <br>
+      @if($post->featuredImageExists())
+        <img class="img-responsive center-block" src="{{$post->getFeaturedImagePath()}}" alt="{{$post->title}}"/>
+      @endif
       <h4>
         <small>
           Published: {{date("M j, Y",strtotime($post->created_at))}}
@@ -62,7 +66,7 @@
               [
                 "class"=>"form-control",
                 "style"=>"height:80px;resize:none;",
-                (Auth::check())?("autofocus"):("disabled")=>""
+                (Auth::check())?(""):("disabled")=>""
               ]
             )
           }}

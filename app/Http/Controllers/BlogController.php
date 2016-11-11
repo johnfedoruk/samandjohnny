@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Post;
+use App\Tag;
+use App\Category;
 use Auth;
 
 class BlogController extends Controller
@@ -22,9 +24,23 @@ class BlogController extends Controller
   }
 
   public function showBlogsForTag($slug) {
-    return view("blog.tags");
+    $tag = Tag::where("slug",$slug)->first();
+    $posts = $tag->posts()->paginate(10);
+    $categories = Category::orderBy("id","desc")->get();
+    $tags = Tag::orderBy("id","desc")->get();
+    foreach($posts as $post)
+      $post->body = strip_tags($post->body);
+    return view('blog.tags')->withTag($tag)->withPosts($posts)->withLen(255)->withCategories($categories)->withTags($tags);
+
   }
   public function showBlogsForCategory($slug) {
-    return "hello world ".$slug;
+    $category = Category::where("slug",$slug)->first();
+    $posts = $category->posts()->paginate(10);
+    $categories = Category::orderBy("id","desc")->get();
+    $tags = Tag::orderBy("id","desc")->get();
+    foreach($posts as $post)
+      $post->body = strip_tags($post->body);
+    return view('blog.categories')->withCategory($category)->withPosts($posts)->withLen(255)->withCategories($categories)->withTags($tags);
+
   }
 }

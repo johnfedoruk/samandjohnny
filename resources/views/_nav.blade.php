@@ -40,10 +40,12 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{Auth::check()?Auth::user()->name:"Account"}} <span class="caret"></span></a>
           <ul class="dropdown-menu">
             @if(Auth::check())
-              <li><a href="{{route('posts.create')}}">Create A Post</a></li>
-              <li><a href="{{route('posts.store')}}">List All Posts</a></li>
-              <li><a href="{{route('categories.index')}}">Manage Categories</a></li>
-              <li><a href="{{route('tags.index')}}">Manage Tags</a></li>
+              @if(Auth::user()->hasRoles(['admin']))
+                <li><a href="{{route('posts.create')}}">Create A Post</a></li>
+                <li><a href="{{route('posts.store')}}">List All Posts</a></li>
+                <li><a href="{{route('categories.index')}}">Manage Categories</a></li>
+                <li><a href="{{route('tags.index')}}">Manage Tags</a></li>
+              @endif
               <li><a href="{{route('auth.logout')}}">Logout</a></li>
             @else
               <li><a href="{{route('auth.login')}}">Login</a></li>

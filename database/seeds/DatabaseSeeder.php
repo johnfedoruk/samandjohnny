@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Seeder;
 use App\Post;
+
+use App\Role;
+
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -24,6 +27,7 @@ class DatabaseSeeder extends Seeder
           [
             "name" => "johnny",
             "email" => "johnny@johnfedoruk.ca",
+            "role_id" => "1",
             "password" => "password",
             "password_confirmation" => "password"
           ]
@@ -83,12 +87,27 @@ class DatabaseSeeder extends Seeder
 
     }
     protected function seedPostTag() {
-      
+
+    }
+    protected function seedRoles() {
+      Role::create(
+        [
+          "name"=>"superuser",
+          "description"=>"Owns the system."
+        ]
+      );
+      Role::create(
+        [
+          "name"=>"Basic User",
+          "description"=>"Can comment on posts."
+        ]
+      );
     }
     public function run()
     {
       // $this->call(UsersTableSeeder::class);
       $this->faker = Faker::create("en_US");
+      $this->seedRoles();
       $this->seedUsers();
       $this->seedCategories();
       $this->seedPosts();

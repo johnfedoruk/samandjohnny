@@ -9,7 +9,14 @@ use Session;
 class CategoryController extends Controller
 {
     public function __construct() {
-      $this->middleware("auth");
+      $this->middleware('auth');
+      Session::flash(
+        "roles",
+        [
+          "admin"
+        ]
+      );
+      $this->middleware("role");
     }
     /**
      * Display a listing of the resource.

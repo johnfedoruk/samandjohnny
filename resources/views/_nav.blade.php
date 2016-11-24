@@ -10,7 +10,7 @@
         <span class="icon-bar"></span>
       </button>
       <!--<a class="navbar-brand" href="{{route('blog.index')}}">Johnny's Project Blog</a>-->
-      <div class="navbar-brand">Johnny's Project Blog</div>
+      <div class="navbar-brand">{{Config::get('app.name')}}</div>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -51,8 +51,10 @@
               <li><a href="{{route('auth.login')}}">Login</a></li>
               <li><a href="{{route('auth.register')}}">Register</a></li>
             @endif
+            <!--
             <li role="separator" class="divider"></li>
             <li><a href="http://johnfedoruk.co.uk" target="_blank">Johnny's Portfolio</a></li>
+            -->
           </ul>
         </li>
       </ul>

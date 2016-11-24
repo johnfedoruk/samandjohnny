@@ -25,7 +25,7 @@ class BlogController extends Controller
 
   public function showBlogsForTag($slug) {
     $tag = Tag::where("slug",$slug)->first();
-    $posts = $tag->posts()->paginate(10);
+    $posts = $tag->posts()->orderBy("id","desc")->paginate(10);
     $categories = Category::orderBy("id","desc")->get();
     $tags = Tag::orderBy("id","desc")->get();
     foreach($posts as $post)
@@ -35,7 +35,7 @@ class BlogController extends Controller
   }
   public function showBlogsForCategory($slug) {
     $category = Category::where("slug",$slug)->first();
-    $posts = $category->posts()->paginate(10);
+    $posts = $category->posts()->orderBy("id","desc")->paginate(10);
     $categories = Category::orderBy("id","desc")->get();
     $tags = Tag::orderBy("id","desc")->get();
     foreach($posts as $post)
